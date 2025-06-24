@@ -11,12 +11,12 @@ data = data.rename(
     columns={'Pregnancies': 'Gravidezes', 'Glucose': 'Glicose', 'BMI': 'IMC', 'Age': 'Idade', 'Outcome': 'Resultado'})
 
 # separando as colunas que irão ser usadas para a árvore de decisão
-sintomas = ['Gravidezes', 'Glicose', 'IMC', 'Idade']
+fatores = ['Gravidezes', 'Glicose', 'IMC', 'Idade']
 
 # monta a árvore de decisão
 clf = tree.DecisionTreeClassifier(max_depth=5)  # limitar a 5 nós de profundidade
 clf = clf.fit(
-    data[sintomas],
+    data[fatores],
     data['Resultado']
 )
 
@@ -33,7 +33,7 @@ def menu():
 def plotar_arvore():
     try:
         plt.figure(figsize=(40, 15))
-        tree.plot_tree(clf, feature_names=sintomas, class_names=['Não', 'Sim'], filled=True, fontsize=10)
+        tree.plot_tree(clf, feature_names=fatores, class_names=['Não', 'Sim'], filled=True, fontsize=10)
         plt.tight_layout()
         plt.show()
     except Exception as e:
